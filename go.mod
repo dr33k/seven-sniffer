@@ -1,3 +1,3 @@
-module seven.com/seven-sniffer
+module seven.com/sniffer
 
 go 1.25.7
