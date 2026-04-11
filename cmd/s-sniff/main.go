@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-"strings"
+	"strings"
 	"seven.com/sniffer/internal/scan"
 	"seven.com/sniffer/pkg/structs"
 )
@@ -26,7 +26,13 @@ func main() {
 	}
 
 	//Print Statuses
+
+	// \033[2K clears the entire line
+    // \r moves the cursor to the start of that line
+	const FORMAT_SPECIFIER = "\033[2K\r[%-5s]: %v\n"
+	
 	fmt.Printf("Scanning ports for host: %v ...\n", host)
+	fmt.Printf(FORMAT_SPECIFIER, "PORT", "STATUS")
 
 	fmtPorts := func(){
 		var displayString strings.Builder
@@ -38,9 +44,8 @@ func main() {
 				statusText = "\033[31mOFFLINE\033[0m" //Green Text
 			}
 
-			// \033[2K clears the entire line
-    		// \r moves the cursor to the start of that line
-			fmt.Fprintf(&displayString, "\033[2K\r[%-7v]: %v\n", port, statusText)
+			//Display current status
+			fmt.Fprintf(&displayString, FORMAT_SPECIFIER, port, statusText)
 		}
 
 		fmt.Print(displayString.String())
