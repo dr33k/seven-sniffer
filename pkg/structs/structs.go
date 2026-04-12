@@ -1,13 +1,18 @@
 package structs
 
+type Input struct{
+	Host *string
+	Ports []int
+}
+
 type Address struct{
-	Host string
+	Host *string
 	Port int
 }
 
 type Packet struct {
 	Ch chan bool
-	IP string
+	IP *string
 }
 
 type IpStatus struct{

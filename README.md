@@ -8,7 +8,7 @@ RUN
 
 ```
 $ go install ./cmd/s-sniff
-$ s-sniff
+$ s-sniff -host google.com -ports=80,90,100
 ```
 
 Compiled with: go1.25.7
