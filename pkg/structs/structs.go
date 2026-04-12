@@ -2,7 +2,7 @@ package structs
 
 type Address struct{
 	Host string
-	Port string
+	Port int
 }
 
 type Packet struct {
