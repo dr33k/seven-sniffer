@@ -2,7 +2,9 @@ PORT SNIFFER
 
 Scans ports for a given IP address host logging their status on the console
 
-Writes TCP packets to files generated for each port
+Todo:
+
+* Write sniffed packets to pcap files for each port
 
 RUN
 
