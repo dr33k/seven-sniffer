@@ -8,9 +8,9 @@ import (
 	"seven.com/sniffer/pkg/structs"
 )
 
-func Sniff(ad * structs.Address, statuses chan * structs.IpStatus) {
+func Sniff(ad * structs.Address, protocol *string, statuses chan * structs.IpStatus) {
 	for{
-		conn, err := net.Dial("tcp", fmt.Sprintf("%v:%v", ad.Host, ad.Port),)
+		conn, err := net.Dial(*protocol, fmt.Sprintf("%v:%v", *ad.Host, ad.Port),)
 
 		//Ping IP Address
 		if err != nil{

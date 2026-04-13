@@ -2,6 +2,7 @@ package structs
 
 type Input struct{
 	Host *string
+	Protocol *string
 	Ports []int
 }
 

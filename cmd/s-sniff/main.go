@@ -28,7 +28,8 @@ func main() {
 	//Poll ports
 	for _, port:= range input.Ports {
 		go scan.Sniff(
-			&structs.Address{Host: input.Host, Port: port}, 
+			&structs.Address{Host: input.Host, Port: port},
+			input.Protocol, 
 			statuses,
 		)
 	}
@@ -39,7 +40,7 @@ func main() {
     // \r moves the cursor to the start of that line
 	const FORMAT_SPECIFIER = "\033[2K\r[%-5v]: %v\n"
 	
-	fmt.Printf("Scanning ports for host: %v ...\n", *input.Host)
+	fmt.Printf("Scanning ports for host: %v using protocol: %s ...\n", *input.Host, *input.Protocol)
 	fmt.Printf(FORMAT_SPECIFIER, "PORT", "STATUS")
 
 	fmtPorts := func(){

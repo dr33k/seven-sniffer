@@ -5,8 +5,10 @@ import (
 	"flag"
 	"fmt"
 	"net"
+	"regexp"
 	"strconv"
 	"strings"
+
 	"seven.com/sniffer/pkg/structs"
 )
 
@@ -14,12 +16,18 @@ import (
 func ParseFlags() (*structs.Input, error){
 	hostPtr := flag.String("host", "scanme.nmap.org", "The IPv4, IPv6 or DNS resolvable host name to sniff")
 	portsPtr:= flag.String("ports", "80", "Comma-Separated Port numbers of the given host to sniff")
+	protocolPtr:= flag.String("ptcl", "tcp", "Indicates either the TCP or UDP Protocol")
 
 	flag.Parse()
 
 	//Validations and transformations
 	err := validateHost(hostPtr)
 	if err != nil {
+		return nil, err
+	}
+
+	err = validateProtocol(protocolPtr)
+	if err != nil{
 		return nil, err
 	}
 
@@ -30,6 +38,7 @@ func ParseFlags() (*structs.Input, error){
 
 	return &structs.Input{
 		Host: hostPtr,
+		Protocol: protocolPtr,
 		Ports: portsInt,
 	}, nil
 }
@@ -41,6 +50,18 @@ func validateHost(value *string) error{
 		return fmt.Errorf("Host '%s' is neither a valid IP Host nor DNS resolvable", *value)
 	}
 
+	return nil
+}
+
+func validateProtocol(value *string) error{
+	regex, err := regexp.Compile("(^tcp$|^udp$)")
+
+	if err == nil{
+		return err;
+	}
+	if !regex.MatchString(*value){
+		return fmt.Errorf("Invalid protocol: %s; Must be 'tcp' or 'udp'", *value)
+	}
 	return nil
 }
 
